@@ -16,6 +16,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
       end
     end
+    
+    if resource.save
+      flash[:success] = "Singed up seccessfully"
+    else
+      # If Contact object deosn't save,
+      # store errors in flash hash,
+      # and redirect to the new action
+      flash[:danger] = resource.errors.full_messages.join(", ")
+    end
   end
   private
     def select_plan
